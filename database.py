@@ -8,8 +8,7 @@ user-specified criteria.
 Under normal circumstances, the main module creates one NEODatabase from the
 data on NEOs and close approaches extracted by `extract.load_neos` and
 `extract.load_approaches`.
-
-You'll edit this file in Tasks 2 and 3.
+`extract.load_approaches`.
 """
 
 from models import NearEarthObject, CloseApproach
@@ -45,13 +44,6 @@ class NEODatabase:
         self._neos = neos
         self._approaches = approaches
 
-        for neo in self._neos:
-            des = neo.designation
-            for approach in self._approaches:
-                if approach.designation == des:
-                    neo.approaches.append(approach)
-                    approach.neo = neo
-
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
 
@@ -66,7 +58,6 @@ class NEODatabase:
         :return: The `NearEarthObject` with the desired primary designation, or `None`.
         """
         for neo in self._neos:
-            print(neo)
             if neo.designation == designation:
                 return neo
         return None
@@ -87,7 +78,7 @@ class NEODatabase:
         """
 
         for neo in self._neos:
-            if neo.name.lower() == name.lower():
+            if neo.name == name:
                 return neo
         return None
 
