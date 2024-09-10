@@ -42,7 +42,7 @@ class NearEarthObject:
         self.designation = info['pdes']
         self.name = None if not info['name'] else info['name']
         self.diameter = float('nan') if not info['diameter'] else float(info['diameter'])
-        self.hazardous = True if info['pha'].lower() == 'y' else False
+        self.hazardous = True if info['pha'] == 'Y' else False
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []
@@ -56,7 +56,7 @@ class NearEarthObject:
         """Return `str(self)`."""
         return (f"NEO {self.fullname} has a diameter of "
                 f"{'UNKNOWN' if self.diameter != self.diameter else self.diameter:.3f} km"
-                f" and is{' not' if self.hazardous else ''} potentially hazardous")
+                f" and is{' not' if not self.hazardous else ''} potentially hazardous")
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
@@ -113,7 +113,7 @@ class CloseApproach:
 
     def __str__(self):
         """Return `str(self)`."""
-        return (f"At {self.time_str}, '{self.neo.fullname}' approaches Earth at a distance of {self.distance:.2f} au and "
+        return (f"At {self.time_str}, {'' if self.neo is None else self.neo.fullname} approaches Earth at a distance of {self.distance:.2f} au and "
                 f"a velocity of {self.velocity:.2f} km/s")
 
     def __repr__(self):
