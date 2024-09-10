@@ -57,16 +57,13 @@ class NearEarthObject:
     @property
     def fullname(self):
         """Return a representation of the full name of this NEO."""
-        return 'NAME'
-        #return f'{self.designation} {'' if self.name is None else ('(' + self.name + ')')}'
+        return f'{self.designation} {'' if self.name is None else ('(' + self.name + ')')}'
 
     def __str__(self):
         """Return `str(self)`."""
-        # Conditional string for hazard of neo
-        return 'POOP'
-        #return (f"NEO {self.fullname} has a diameter of "
-                #f"{'UNKNOWN' if self.diameter != self.diameter else self.diameter:.3f} km"
-                #f"and is {'not' if self.hazardous else ''} potentially hazardous")
+        return (f"NEO {self.fullname} has a diameter of "
+                f"{'UNKNOWN' if self.diameter != self.diameter else self.diameter:.3f} km"
+                f" and is{' not' if self.hazardous else ''} potentially hazardous")
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
