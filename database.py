@@ -44,6 +44,12 @@ class NEODatabase:
         self._neos = neos
         self._approaches = approaches
 
+        for approach in self._approaches:
+            for neo in self._neos:
+                if approach.designation == neo.designation:
+                    neo.approaches.append(approach)
+                    approach.neo = neo
+
     def get_neo_by_designation(self, designation):
         """Find and return an NEO by its primary designation.
 
