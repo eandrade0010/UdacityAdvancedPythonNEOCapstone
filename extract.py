@@ -22,17 +22,35 @@ def load_neos(neo_csv_path):
     """Read near-Earth object information from a CSV file.
 
     :param neo_csv_path: A path to a CSV file containing data about near-Earth objects.
-    :return: A collection of `NearEarthObject`s.
+    :return: A collection of `NearEarthObject`s as a dictionary of dicts for each NEO
+    with the keys name, pha, and diameter
     """
-    # TODO: Load NEO data from the given CSV file.
-    return ()
+
+    neo_keys = ['pdes', 'name', 'pha', 'diameter']
+    neos = []
+    with open(neo_csv_path, 'r') as infile:
+        reader = csv.DictReader(infile)
+        for neo in reader:
+            neos.append(NearEarthObject(**{n: neo[n] for n in neo_keys}))
+    return neos
 
 
 def load_approaches(cad_json_path):
     """Read close approach data from a JSON file.
 
     :param cad_json_path: A path to a JSON file containing data about close approaches.
-    :return: A collection of `CloseApproach`es.
+    :return: A collection of `CloseApproach`es in the form of a dictionary with the PDES as a key and the values
+    a list of close approaches
     """
-    # TODO: Load close approach data from the given JSON file.
-    return ()
+
+    with open(cad_json_path, 'r') as infile:
+        contents = json.load(infile)  # Parse JSON data into Python object
+
+    fields = contents['fields']
+    approach_keys = ['des', 'cd', 'dist', 'v_rel']
+    idx = [fields.index(key) for key in approach_keys]
+
+    approaches = []
+    for data in contents['data']:
+        approaches.append(CloseApproach(**{fields[i]: data[i] for i in idx}))
+    return approaches
