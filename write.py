@@ -50,7 +50,6 @@ def write_to_json(results, filename):
     :param results: An iterable of `CloseApproach` objects.
     :param filename: A Path-like object pointing to where the data should be saved.
     """
-
     approach_keys = ['datetime_utc', 'distance_au', 'velocity_km_s']
     neo_keys = ['designation', 'name', 'diameter_km', 'potentially_hazardous']
     data = []

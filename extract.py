@@ -25,7 +25,6 @@ def load_neos(neo_csv_path):
     :return: A collection of `NearEarthObject`s as a dictionary of dicts for each NEO
     with the keys name, pha, and diameter
     """
-
     neo_keys = ['pdes', 'name', 'pha', 'diameter']
     neos = []
     with open(neo_csv_path, 'r') as infile:
@@ -42,7 +41,6 @@ def load_approaches(cad_json_path):
     :return: A collection of `CloseApproach`es in the form of a dictionary with the PDES as a key and the values
     a list of close approaches
     """
-
     with open(cad_json_path, 'r') as infile:
         contents = json.load(infile)  # Parse JSON data into Python object
 

@@ -39,6 +39,7 @@ class AttributeFilter:
     Concrete subclasses can override the `get` classmethod to provide custom
     behavior to fetch a desired attribute from the given `CloseApproach`.
     """
+
     def __init__(self, op, value):
         """Construct a new `AttributeFilter` from an binary predicate and a reference value.
 
@@ -70,36 +71,52 @@ class AttributeFilter:
         raise UnsupportedCriterionError
 
     def __repr__(self):
+        """Program representation of class."""
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
 
 class DateFilter(AttributeFilter):
+    """Filter that compares the approach.time attribute to the given date."""
+
     @classmethod
     def get(cls, approach):
+        """Return the time attribute of the approach in appropriate .date() format."""
         return approach.time.date()
 
 
 class DistanceFilter(AttributeFilter):
+    """Filter that compares the approach.distance attribute to the given distance in km."""
+
     @classmethod
     def get(cls, approach):
+        """Get the distance attribute from the given approach."""
         return approach.distance
 
 
 class VelocityFilter(AttributeFilter):
+    """Filter that compares the approach.velocity attribute to the given velocity in km/s."""
+
     @classmethod
     def get(cls, approach):
+        """Get the velocity attribute from the given approach."""
         return approach.velocity
 
 
 class DiameterFilter(AttributeFilter):
+    """Filter that compares the approach.neo.diameter to the given diameter in km."""
+
     @classmethod
     def get(cls, approach):
+        """Return the diameter of the approach.neo attribute."""
         return approach.neo.diameter
 
 
 class HazardFilter(AttributeFilter):
+    """Return boolean reflecting whether an approach is hazardous via the approach.neo.hazardous attribute."""
+
     @classmethod
     def get(cls, approach):
+        """Return the hazardous attribute from the neo."""
         return approach.neo.hazardous
 
 
